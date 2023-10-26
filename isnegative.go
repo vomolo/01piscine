@@ -10,8 +10,3 @@ func IsNegative(nb int) {
 	}
 	z01.PrintRune('\n')
 }
-
-func main() {
-	IsNegative(-5) // This will print 'T'
-	IsNegative(10) // This will print 'F'
-}
