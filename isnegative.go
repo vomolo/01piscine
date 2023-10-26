@@ -1,16 +1,17 @@
-package main
+package piscine
 
-import "fmt"
+import "github.com/01-edu/z01"
 
-func isNegative(number int) {
-    if number < 0 {
-        fmt.Println("T")
-    } else {
-        fmt.Println("F")
-    }
+func IsNegative(nb int) {
+	if nb < 0 {
+		z01.PrintRune("T")
+	} else {
+		z01.PrintRune("F")
+	}
+	z01.PrintRune('\n')
 }
 
 func main() {
-    isNegative(-7) // This will print 'T'
-    isNegative(11)  // This will print 'F'
+	IsNegative(-5) // This will print 'T'
+	IsNegative(10) // This will print 'F'
 }
