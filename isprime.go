@@ -1,17 +1,17 @@
 package piscine
 
-func Sqrt(nb int) int {
-	var i int = 1
-	var n int = 0
-	for nb != 0 {
-		if i%2 != 0 {
-			nb = nb - i
-			n++
-		}
-		if nb < 0 {
-			return 0
-		}
-		i++
+func IsPrime(nb int) bool {
+	if nb < 2 {
+		return false
+	} else if nb == 2 || nb == 3 {
+		return true
+	} else if nb%2 == 0 {
+		return false
 	}
-	return n
+	for i := 3; i*i <= nb; i += 2 {
+		if nb%i == 0 {
+			return false
+		}
+	}
+	return true
 }
