@@ -1,22 +1,20 @@
 package piscine
 
-func SplitWords(input string) []string {
-	var words []string
+func SplitWhiteSpaces(s string) []string {
+	var result []string
 	word := ""
-	for _, char := range input {
+	for _, char := range s {
 		if char == ' ' || char == '\t' || char == '\n' {
 			if word != "" {
-				words = append(words, word)
+				result = append(result, word)
 				word = ""
 			}
 		} else {
 			word += string(char)
 		}
 	}
-
 	if word != "" {
-		words = append(words, word)
+		result = append(result, word)
 	}
-
-	return words
+	return result
 }
