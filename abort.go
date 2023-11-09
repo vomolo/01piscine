@@ -1,19 +1,13 @@
 package piscine
 
-import (
-	"sort"
-)
-
-func Median(a, b, c, d, e int) int {
-	integers := []int{a, b, c, d, e}
-	sort.Ints(integers)
-	median := integers[2]
-
-	return median
-}
-
-func main() {
-	a, b, c, d, e := 5, 2, 7, 1, 3
-	median := Median(a, b, c, d, e)
-	println("Median:", median)
+func Abort(a, b, c, d, e int) int {
+	nums := []int{a, b, c, d, e}
+	for i := 0; i < len(nums)-1; i++ {
+		for j := i + 1; j < len(nums); j++ {
+			if nums[i] > nums[j] {
+				nums[i], nums[j] = nums[j], nums[i]
+			}
+		}
+	}
+	return nums[len(nums)/2]
 }
