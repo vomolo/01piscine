@@ -1,14 +1,18 @@
-package piscine
+package main
 
 import "fmt"
 
-const AIRCRAFT1 = 1
+type Aircraft int
+
+const (
+	AIRCRAFT1 Aircraft = 1
+)
 
 type Pilot struct {
 	Name     string
-	Life     float32
+	Life     float64
 	Age      int
-	Aircraft int
+	Aircraft Aircraft
 }
 
 func main() {
