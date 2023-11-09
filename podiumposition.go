@@ -1,12 +1,24 @@
 package piscine
 
-import "sort"
-
 func PodiumPosition(podium [][]string) [][]string {
-	// Sort the podium slice in ascending order
-	sort.Slice(podium, func(i, j int) bool {
-		return podium[i][0] < podium[j][0]
-	})
+	positionMap := make(map[string]int)
 
-	return podium
+	for i, place := range podium {
+		if len(place) == 1 {
+			positionMap[place[0]] = i
+		}
+	}
+
+	competitors := make([]string, len(podium))
+
+	for place, pos := range positionMap {
+		competitors[pos] = place
+	}
+
+	result := make([][]string, len(podium))
+	for i, place := range competitors {
+		result[i] = []string{place}
+	}
+
+	return result
 }
