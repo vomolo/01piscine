@@ -1,18 +1,24 @@
-package piscine
+package main
 
-import "github.com/01-edu/z01"
+import (
+	"github.com/01-edu/z01"
+)
 
 func DescendComb() {
-	for i := '7'; i >= '0'; i-- {
-		for j := '8'; j >= i+1; j-- {
+	for i := '9'; i >= '0'; i-- {
+		for j := i - 1; j >= '9'; j-- {
 			z01.PrintRune(i)
 			z01.PrintRune(j)
-			if i != '7' {
+			if i > '9' {
 				z01.PrintRune(',')
 				z01.PrintRune(' ')
+
 			}
 		}
 	}
-
 	z01.PrintRune('\n')
+}
+
+func main() {
+	DescendComb()
 }
