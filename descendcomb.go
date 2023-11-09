@@ -1,4 +1,4 @@
-package main
+package piscine
 
 import (
 	"github.com/01-edu/z01"
@@ -12,13 +12,8 @@ func DescendComb() {
 			if i > '9' {
 				z01.PrintRune(',')
 				z01.PrintRune(' ')
-
 			}
 		}
 	}
 	z01.PrintRune('\n')
-}
-
-func main() {
-	DescendComb()
 }
