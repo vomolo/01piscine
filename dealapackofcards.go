@@ -1,33 +1,13 @@
-package main
+package piscine
 
-import "github.com/01-edu/z01"
+import "fmt"
 
-func DealAPackOfCards(deck []rune) {
-	if len(deck) != 12 {
-		z01.Println("The deck should contain exactly 12 cards.")
-		return
+func DealAPackOfCards(dec []int) {
+	arrDeck := dec
+	player := 1
+
+	for i := 0; i < 12; i += 3 {
+		fmt.Printf("Player %v: %v, %v, %v\n", player, arrDeck[i], arrDeck[i+1], arrDeck[i+2])
+		player++
 	}
-
-	players := 4
-	cardsPerPlayer := len(deck) / players
-
-	for i := 0; i < players; i++ {
-		start := i * cardsPerPlayer
-		end := (i + 1) * cardsPerPlayer
-
-		playerCards := deck[start:end]
-
-		z01.Printf("Player %d: ", i+1)
-		for _, card := range playerCards {
-			z01.PrintRune(card)
-		}
-		z01.PrintRune('\n')
-	}
-}
-
-func main() {
-	// Sample deck of 12 cards represented as runes
-	deck := []rune{'A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q'}
-
-	DealAPackOfCards(deck)
 }
