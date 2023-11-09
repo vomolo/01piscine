@@ -1,19 +1,20 @@
-package piscine
+package main
 
-import (
-	"github.com/01-edu/z01"
-)
+import "fmt"
 
 func DescendComb() {
-	for i := '9'; i >= '0'; i-- {
-		for j := i - 1; j >= '9'; j-- {
-			z01.PrintRune(i)
-			z01.PrintRune(j)
-			if i > '9' {
-				z01.PrintRune(',')
-				z01.PrintRune(' ')
+	for i := 99; i >= 10; i-- {
+		for j := i - 1; j >= 10; j-- {
+			fmt.Printf("%02d %02d", i, j)
+
+			if j != 10 {
+				fmt.Print(", ")
 			}
 		}
 	}
-	z01.PrintRune('\n')
+	fmt.Println()
+}
+
+func main() {
+	DescendComb()
 }
