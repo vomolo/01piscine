@@ -1,9 +1,7 @@
 package main
 
 import (
-	"fmt"
 	"os"
-	"strconv"
 )
 
 func main() {
@@ -11,37 +9,49 @@ func main() {
 		return
 	}
 
-	value1, err1 := strconv.ParseInt(os.Args[1], 10, 64)
+	value1 := os.Args[1]
 	operator := os.Args[2]
-	value2, err2 := strconv.ParseInt(os.Args[3], 10, 64)
+	value2 := os.Args[3]
 
-	if err1 != nil || err2 != nil {
-		return
-	}
+	var result int64
 
-	result := int64(0)
-	switch operator {
-	case "+":
-		result = value1 + value2
-	case "-":
-		result = value1 - value2
-	case "*":
-		result = value1 * value2
-	case "/":
-		if value2 == 0 {
-			fmt.Println("No division by 0")
+	if operator == "+" {
+		result = strToInt(value1) + strToInt(value2)
+	} else if operator == "-" {
+		result = strToInt(value1) - strToInt(value2)
+	} else if operator == "*" {
+		result = strToInt(value1) * strToInt(value2)
+	} else if operator == "/" {
+		if value2 == "0" {
+			println("No division by 0")
 			return
 		}
-		result = value1 / value2
-	case "%":
-		if value2 == 0 {
-			fmt.Println("No modulo by 0")
+		result = strToInt(value1) / strToInt(value2)
+	} else if operator == "%" {
+		if value2 == "0" {
+			println("No modulo by 0")
 			return
 		}
-		result = value1 % value2
-	default:
-		return
+		result = strToInt(value1) % strToInt(value2)
 	}
 
-	fmt.Println(result)
+	print(result)
+}
+
+func strToInt(s string) int64 {
+	var result int64
+	neg := false
+	for i, c := range s {
+		if i == 0 && c == '-' {
+			neg = true
+		} else if c >= '0' && c <= '9' {
+			result = result*10 + int64(c-'0')
+		} else {
+			return 0
+		}
+	}
+	if neg {
+		result *= -1
+	}
+	return result
 }
