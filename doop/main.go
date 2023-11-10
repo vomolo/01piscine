@@ -1,105 +1,85 @@
 package main
 
 import (
-	"errors"
 	"os"
 )
 
-func main() {
-	if len(os.Args) != 4 {
-		return
-	}
-
-	a, op, b := os.Args[1], os.Args[2], os.Args[3]
-
-	result, err := doOperation(a, op, b)
-	if err != nil {
-		return
-	}
-
-	writeString(result)
+func isOperatorValid(op string) bool {
+	return op == "+" || op == "-" || op == "*" || op == "/" || op == "%"
 }
 
-func doOperation(a, op, b string) (string, error) {
-	switch op {
+func doOperation(value1, value2 int, operator string) (result int, err string) {
+	switch operator {
 	case "+":
-		return add(a, b), nil
+		result = value1 + value2
 	case "-":
-		return subtract(a, b), nil
+		result = value1 - value2
 	case "*":
-		return multiply(a, b), nil
+		result = value1 * value2
 	case "/":
-		result, err := divide(a, b)
-		if err != nil {
-			return "", err
+		if value2 == 0 {
+			err = "No division by 0"
+		} else {
+			result = value1 / value2
 		}
-		return result, nil
 	case "%":
-		result, err := modulo(a, b)
-		if err != nil {
-			return "", err
+		if value2 == 0 {
+			err = "No modulo by 0"
+		} else {
+			result = value1 % value2
 		}
-		return result, nil
-	default:
-		return "", errors.New("invalid operator")
 	}
+	return result, err
 }
 
-func add(a, b string) string {
-	return toString(toInt(a) + toInt(b))
-}
-
-func subtract(a, b string) string {
-	return toString(toInt(a) - toInt(b))
-}
-
-func multiply(a, b string) string {
-	return toString(toInt(a) * toInt(b))
-}
-
-func divide(a, b string) (string, error) {
-	if b == "0" {
-		writeString("No division by 0")
-		return "", errors.New("division by zero")
+func main() {
+	args := os.Args
+	if len(args) != 4 {
+		return
 	}
-	return toString(toInt(a) / toInt(b)), nil
-}
 
-func modulo(a, b string) (string, error) {
-	if b == "0" {
-		writeString("No modulo by 0")
-		return "", errors.New("modulo by zero")
+	value1 := 0
+	value2 := 0
+	operator := args[2]
+
+	_, err1 := scan(args[1], &value1)
+	_, err2 := scan(args[3], &value2)
+
+	if !isOperatorValid(operator) || err1 != "" || err2 != "" {
+		return
 	}
-	return toString(toInt(a) % toInt(b)), nil
+
+	result, err := doOperation(value1, value2, operator)
+
+	if err != "" {
+		return
+	}
+
+	print(result)
 }
 
-func toInt(s string) int {
-	result := 0
-	neg := false
-	for i, c := range s {
-		if i == 0 && c == '-' {
-			neg = true
-			continue
+func scan(s string, x *int) (ok bool, err string) {
+	*x = 0
+	if s == "" {
+		return
+	}
+	neg := 1
+	if s[0] == '-' {
+		neg = -1
+		s = s[1:]
+	}
+	for _, ch := range s {
+		if ch < '0' || ch > '9' {
+			return
 		}
-		result = result*10 + int(c-'0')
+		*x = *x*10 + int(ch-'0')
+		if *x < 0 {
+			*x = 0
+			err = "Overflow"
+			return
+		}
 	}
-	if neg {
-		return -result
-	}
-	return result
-}
-
-func toString(n int) string {
-	if n < 0 {
-		return "-" + toString(-n)
-	}
-	if n < 10 {
-		return string('0' + n)
-	}
-	return toString(n/10) + string('0'+n%10)
-}
-
-func writeString(s string) {
-	// Use os.Stdout.Write() to write the string to standard output
-	os.Stdout.Write([]byte(s))
+	*x *= neg
+	ok = true
+	return
 }
