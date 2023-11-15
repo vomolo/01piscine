@@ -19,6 +19,6 @@ func ListPushBack(l *List, data interface{}) {
 		for elt.Next != nil {
 			elt = elt.Next
 		}
-		elt.Next = 
+		elt.Next = n
 	}
 }
