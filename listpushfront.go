@@ -1,11 +1,11 @@
 package piscine
 
 func ListPushFront(l *List, data interface{}) {
-	n := &NodeL{Data: data}
+	no := &NodeL{Data: data}
 	if l.Head == nil {
-		l.Head = n
+		l.Head = no
 		return
 	}
-	n.Next = l.Head
-	l.Head = n
+	no.Next = l.Head
+	l.Head = no
 }
