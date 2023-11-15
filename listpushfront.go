@@ -1,12 +1,4 @@
-type NodeL struct {
-	Data interface{}
-	Next *NodeL
-}
-
-type List struct {
-	Head *NodeL
-	Tail *NodeL
-}
+package piscine
 
 func ListPushFront(l *List, data interface{}) {
 	n := &NodeL{Data: data}
@@ -17,4 +9,3 @@ func ListPushFront(l *List, data interface{}) {
 	n.Next = l.Head
 	l.Head = n
 }
-   
